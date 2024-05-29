@@ -77,10 +77,11 @@ const rows = [
 ];
 function CustomTable({ data: exportData }) {
   // const [exData, setExData] = useState([]);
+  console.log("data in table compo : ", exportData);
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={exportData}
+        rows={exportData?.exportData}
         columns={columns}
         initialState={{
           pagination: {
@@ -95,29 +96,33 @@ function CustomTable({ data: exportData }) {
 }
 
 // Define prop types with shape for exportData
+
+const dataShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  order_date: PropTypes.string.isRequired,
+  exporter_name: PropTypes.string.isRequired,
+  consignee_name: PropTypes.string.isRequired,
+  hs_code: PropTypes.string.isRequired,
+  product_description: PropTypes.string.isRequired,
+  unit_quantity: PropTypes.string.isRequired,
+  ports: PropTypes.string.isRequired,
+  foreign_port: PropTypes.string.isRequired,
+  foreign_country: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  unit_inr_amount: PropTypes.number.isRequired,
+  total_inr_amount: PropTypes.number.isRequired,
+});
+
 CustomTable.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      order_date: PropTypes.string.isRequired,
-      exporter_name: PropTypes.string.isRequired,
-      consignee_name: PropTypes.string.isRequired,
-      hs_code: PropTypes.string.isRequired,
-      product_description: PropTypes.string.isRequired,
-      unit_quantity: PropTypes.string.isRequired,
-      ports: PropTypes.string.isRequired,
-      foreign_port: PropTypes.string.isRequired,
-      foreign_country: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
-      unit_inr_amount: PropTypes.number.isRequired,
-      total_inr_amount: PropTypes.number.isRequired,
-    })
-  ).isRequired,
+  data: PropTypes.shape({
+    exportData: PropTypes.arrayOf(dataShape).isRequired,
+    country: PropTypes.string,
+  }),
   // otherProp: PropTypes.string, // Define other props if necessary
 };
 
 CustomTable.defaultProps = {
-  exportData: [], // Default value for exportData if necessary
+  exportData: {}, // Default value for exportData if necessary
 };
 
 export default CustomTable;

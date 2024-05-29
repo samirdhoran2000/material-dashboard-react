@@ -11,7 +11,10 @@ import { exportData } from "layouts/rtl/components/custom-components/data";
 
 function Dashboard() {
   // const { columns, rows } = authorsTableData();
-  const [selectData, setSelectData] = useState(exportData);
+  const [selectData, setSelectData] = useState({
+    exportData: exportData,
+    country: "Germany",
+  });
 
   const handleDataFromSelect = (data) => {
     setSelectData(data);
@@ -36,11 +39,11 @@ function Dashboard() {
                 color="info"
                 icon="weekend"
                 title="Consignees"
-                count={281}
+                count={selectData?.exportData?.length}
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: "From Germany",
+                  label: `From ${selectData?.country}`,
                 }}
               />
             </MDBox>
@@ -51,11 +54,11 @@ function Dashboard() {
                 color="success"
                 icon="leaderboard"
                 title="Average Quantity"
-                count="2,300"
+                count={"2,300"}
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: "From Germany",
+                  label: `From ${selectData?.country}`,
                 }}
               />
             </MDBox>
@@ -70,7 +73,7 @@ function Dashboard() {
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: "From Germany",
+                  label: `From ${selectData?.country}`,
                 }}
               />
             </MDBox>
@@ -85,7 +88,7 @@ function Dashboard() {
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: "From Germany",
+                  label: `From ${selectData?.country}`,
                 }}
               />
             </MDBox>

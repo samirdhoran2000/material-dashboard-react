@@ -11,12 +11,12 @@ import { exportData } from "./data";
 const range = ["above Average", "below average"];
 
 function SelectComponent({ sendData }) {
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("All");
   const [average, setAverage] = useState("");
 
   const filteredData = ({ countryVal = "", average = "" } = {}) => {
     if (!countryVal || !average) {
-      sendData(exportData); // Send filtered data to parent component
+      sendData({ exportData: exportData, country: country }); // Send filtered data to parent component
     }
 
     const data = exportData.filter((item) => {
@@ -26,7 +26,7 @@ function SelectComponent({ sendData }) {
         return item.foreign_country === countryVal;
       }
     });
-    sendData(data); // Send filtered data to parent component
+    sendData({ exportData: data, country: countryVal }); // Send filtered data to parent component
   };
 
   const newArray = exportData.map((item) => item.foreign_country);
