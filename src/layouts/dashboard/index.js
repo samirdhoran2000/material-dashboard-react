@@ -39,6 +39,7 @@ function Dashboard() {
                 count={281}
                 percentage={{
                   color: "success",
+                  amount: "",
                   label: "From Germany",
                 }}
               />
@@ -53,6 +54,7 @@ function Dashboard() {
                 count="2,300"
                 percentage={{
                   color: "success",
+                  amount: "",
                   label: "From Germany",
                 }}
               />
@@ -66,6 +68,8 @@ function Dashboard() {
                 title="Average Price"
                 count="34k"
                 percentage={{
+                  color: "success",
+                  amount: "",
                   label: "From Germany",
                 }}
               />
@@ -80,6 +84,7 @@ function Dashboard() {
                 count="+91"
                 percentage={{
                   color: "success",
+                  amount: "",
                   label: "From Germany",
                 }}
               />
