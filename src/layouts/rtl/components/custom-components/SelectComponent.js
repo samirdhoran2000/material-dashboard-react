@@ -114,7 +114,7 @@ function SelectComponent({ sendData }) {
           </Select>
         </FormControl>
       </Box>
-      <Box
+      {/* <Box
         height={100}
         width={200}
         sx={{ minWidth: 120, minHeight: 120, margin: "0 10px" }}
@@ -145,7 +145,7 @@ function SelectComponent({ sendData }) {
             ))}
           </Select>
         </FormControl>
-      </Box>
+      </Box> */}
     </div>
   );
 }
