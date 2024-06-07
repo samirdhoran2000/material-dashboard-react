@@ -7,24 +7,41 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 import SelectComponent from "layouts/rtl/components/custom-components/SelectComponent";
 import { useState, useEffect } from "react";
 import CustomTable from "layouts/rtl/components/custom-components/CustomTable";
-import { exportData } from "layouts/rtl/components/custom-components/data";
+// import exportData from "layouts/rtl/components/custom-components/data";
 
 function Dashboard() {
   // const { columns, rows } = authorsTableData();
+  const [averageData, setAverageData] = useState({});
   const [selectData, setSelectData] = useState({
-    exportData: exportData,
-    country: "Germany",
+    exportData: [],
+    country: "All",
   });
 
+  const getAverageData = () => {
+    const fun = async () => {
+      const res = await fetch("http://localhost:3000/api/getAverageData");
+      const data = await res.json();
+      setAverageData(data?.result);
+      console.log("fun data get successfully in dashboard ", data?.result);
+    };
+    fun();
+  };
+  useEffect(() => {
+    const fun = async () => {
+      const res = await fetch("http://localhost:3000/api/getExportData");
+      const data = await res.json();
+      // setExportData(data?.result?.rows);
+      setSelectData({ exportData: data?.result?.rows });
+      console.log("fun data get successfully in dashboard ", data?.result);
+    };
+    fun();
+    getAverageData();
+  }, []);
   const handleDataFromSelect = (data) => {
     setSelectData(data);
     console.log("Data received in parent: ", data);
     console.table(data);
   };
-
-  useEffect(() => {
-    console.log("Selected data in parent component: ", selectData);
-  }, [selectData]);
 
   return (
     <DashboardLayout>
@@ -43,7 +60,9 @@ function Dashboard() {
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${selectData?.country}`,
+                  label: `From ${
+                    !selectData?.country ? "All" : selectData?.country
+                  }`,
                 }}
               />
             </MDBox>
@@ -58,7 +77,9 @@ function Dashboard() {
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${selectData?.country}`,
+                  label: `From ${
+                    !selectData?.country ? "All" : selectData?.country
+                  }`,
                 }}
               />
             </MDBox>
@@ -73,7 +94,9 @@ function Dashboard() {
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${selectData?.country}`,
+                  label: `From ${
+                    !selectData?.country ? "All" : selectData?.country
+                  }`,
                 }}
               />
             </MDBox>
@@ -88,7 +111,9 @@ function Dashboard() {
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${selectData?.country}`,
+                  label: `From ${
+                    !selectData?.country ? "All" : selectData?.country
+                  }`,
                 }}
               />
             </MDBox>

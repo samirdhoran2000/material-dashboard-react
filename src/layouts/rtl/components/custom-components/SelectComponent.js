@@ -1,18 +1,28 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { exportData } from "./data";
+// import { exportData } from "./data";
 
 const range = ["above Average", "below average"];
 
 function SelectComponent({ sendData }) {
   const [country, setCountry] = useState("All");
   const [average, setAverage] = useState("");
+  const [exportData, setExportData] = useState([]);
+  useEffect(() => {
+    const fun = async () => {
+      const res = await fetch("http://localhost:3000/api/getExportData");
+      const data = await res.json();
+      setExportData(data?.result?.rows);
+      console.log("fun data get successfully exported ", data?.result);
+    };
+    fun();
+  }, []);
 
   const filteredData = ({ countryVal = "", average = "" } = {}) => {
     if (!countryVal || !average) {
@@ -82,7 +92,7 @@ function SelectComponent({ sendData }) {
           </Select>
         </FormControl>
       </Box>
-      <Box
+      {/* <Box
         height={100}
         width={200}
         sx={{ minWidth: 120, minHeight: 120, margin: "0 10px" }}
@@ -113,7 +123,7 @@ function SelectComponent({ sendData }) {
             ))}
           </Select>
         </FormControl>
-      </Box>
+      </Box> */}
       {/* <Box
         height={100}
         width={200}

@@ -940,4 +940,4 @@ const exportData = [
   },
 ];
 
-export { exportData };
+export { exportData as default };

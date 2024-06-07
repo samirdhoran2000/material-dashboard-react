@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
-  { field: "order_date", headerName: "Order Date", width: 130 },
+  { field: "date", headerName: "Order Date", width: 130 },
   { field: "exporter_name", headerName: "Exporter", width: 130 },
   { field: "consignee_name", headerName: "Consignee", width: 130 },
   {
@@ -29,8 +29,8 @@ const columns = [
     width: 90,
   },
   {
-    field: "ports",
-    headerName: "Ports",
+    field: "port",
+    headerName: "Port",
     // type: "number",
     width: 90,
   },
@@ -51,13 +51,13 @@ const columns = [
     width: 90,
   },
   {
-    field: "unit_inr_amount",
+    field: "unit_fob_inr",
     headerName: "Unit INR",
     type: "number",
     width: 90,
   },
   {
-    field: "total_inr_amount",
+    field: "total_fob_inr",
     headerName: "Total INR",
     type: "number",
     width: 90,
@@ -98,19 +98,19 @@ function CustomTable({ data: exportData }) {
 // Define prop types with shape for exportData
 
 const dataShape = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  order_date: PropTypes.string.isRequired,
-  exporter_name: PropTypes.string.isRequired,
-  consignee_name: PropTypes.string.isRequired,
-  hs_code: PropTypes.string.isRequired,
-  product_description: PropTypes.string.isRequired,
-  unit_quantity: PropTypes.string.isRequired,
-  ports: PropTypes.string.isRequired,
-  foreign_port: PropTypes.string.isRequired,
-  foreign_country: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
-  unit_inr_amount: PropTypes.number.isRequired,
-  total_inr_amount: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  date: PropTypes.string,
+  exporter_name: PropTypes.string,
+  consignee_name: PropTypes.string,
+  hs_code: PropTypes.string,
+  product_description: PropTypes.string,
+  unit_quantity: PropTypes.string,
+  port: PropTypes.string,
+  foreign_port: PropTypes.string,
+  foreign_country: PropTypes.string,
+  quantity: PropTypes.number,
+  unit_fob_inr: PropTypes.number,
+  total_fob_inr: PropTypes.number,
 });
 
 CustomTable.propTypes = {
