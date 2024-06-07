@@ -1,3 +1,4 @@
+//select component
 import * as React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
@@ -12,8 +13,24 @@ const range = ["above Average", "below average"];
 
 function SelectComponent({ sendData }) {
   const [country, setCountry] = useState("All");
-  const [average, setAverage] = useState("");
+  const [averageQuantity, setAverageQuantity] = useState("");
+  const [averagePrice, setAveragePrice] = useState("");
+  const [average, setAverage] = useState();
   const [exportData, setExportData] = useState([]);
+
+  const getAverageData = (country = "") => {
+    const fun = async () => {
+      const res = await fetch(
+        `http://localhost:3000/api/getAverageData?country=${country}`
+      );
+      const data = await res.json();
+      setAverage(data?.result?.rows);
+      // setAverageQuantity(data?.result);
+      console.log("fun data get successfully in dashboard ", data);
+    };
+    fun();
+  };
+
   useEffect(() => {
     const fun = async () => {
       const res = await fetch("http://localhost:3000/api/getExportData");
@@ -22,11 +39,23 @@ function SelectComponent({ sendData }) {
       console.log("fun data get successfully exported ", data?.result);
     };
     fun();
+    getAverageData();
   }, []);
 
-  const filteredData = ({ countryVal = "", average = "" } = {}) => {
-    if (!countryVal || !average) {
-      sendData({ exportData: exportData, country: country }); // Send filtered data to parent component
+  const filteredData = ({
+    countryVal = "",
+    averageQuantity = "",
+    averagePrice = "",
+    consigneeCount = "",
+  } = {}) => {
+    if (!countryVal || !averageQuantity || !averagePrice || !consigneeCount) {
+      sendData({
+        exportData: exportData,
+        country: country,
+        averageQuantity: averageQuantity,
+        averagePrice: averagePrice,
+        consigneeCount: consigneeCount,
+      }); // Send filtered data to parent component
     }
 
     const data = exportData.filter((item) => {
@@ -36,7 +65,22 @@ function SelectComponent({ sendData }) {
         return item.foreign_country === countryVal;
       }
     });
-    sendData({ exportData: data, country: countryVal }); // Send filtered data to parent component
+
+    const avgPrice = average.filter((item) => {
+      if (countryVal === "All") {
+        return true;
+      } else {
+        return item.foreign_country == countryVal;
+      }
+    });
+    console.log("average price in select coponent ", avgPrice);
+    sendData({
+      exportData: data,
+      country: countryVal,
+      averagePrice: avgPrice[0]?.average_price,
+      averageQuantity: avgPrice[0]?.average_quantity,
+      consigneeCount: avgPrice[0]?.consignee_count,
+    }); // Send filtered data to parent component
   };
 
   const newArray = exportData.map((item) => item.foreign_country);

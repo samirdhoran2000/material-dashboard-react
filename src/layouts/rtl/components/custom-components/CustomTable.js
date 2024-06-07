@@ -115,7 +115,7 @@ const dataShape = PropTypes.shape({
 
 CustomTable.propTypes = {
   data: PropTypes.shape({
-    exportData: PropTypes.arrayOf(dataShape).isRequired,
+    exportData: PropTypes.arrayOf(dataShape),
     country: PropTypes.string,
   }),
   // otherProp: PropTypes.string, // Define other props if necessary

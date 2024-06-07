@@ -1,3 +1,4 @@
+//dashboard component
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -11,7 +12,7 @@ import CustomTable from "layouts/rtl/components/custom-components/CustomTable";
 
 function Dashboard() {
   // const { columns, rows } = authorsTableData();
-  const [averageData, setAverageData] = useState({});
+  // const [averageData, setAverageData] = useState({});
   const [selectData, setSelectData] = useState({
     exportData: [],
     country: "All",
@@ -21,7 +22,7 @@ function Dashboard() {
     const fun = async () => {
       const res = await fetch("http://localhost:3000/api/getAverageData");
       const data = await res.json();
-      setAverageData(data?.result);
+      // setAverageData(data?.result);
       console.log("fun data get successfully in dashboard ", data?.result);
     };
     fun();
@@ -56,7 +57,11 @@ function Dashboard() {
                 color="info"
                 icon="weekend"
                 title="Consignees"
-                count={selectData?.exportData?.length}
+                count={
+                  !Number(selectData?.consigneeCount).toFixed()
+                    ? "Please Select Country"
+                    : Number(selectData?.consigneeCount).toFixed(0)
+                }
                 percentage={{
                   color: "success",
                   amount: "",
@@ -73,7 +78,11 @@ function Dashboard() {
                 color="success"
                 icon="leaderboard"
                 title="Average Quantity"
-                count={"2,300"}
+                count={
+                  !Number(selectData?.averageQuantity).toFixed()
+                    ? "Please Select Country"
+                    : Number(selectData?.averageQuantity).toFixed()
+                }
                 percentage={{
                   color: "success",
                   amount: "",
@@ -90,7 +99,11 @@ function Dashboard() {
                 color="dark"
                 icon="store"
                 title="Average Price"
-                count="34k"
+                count={
+                  !Number(selectData?.averagePrice).toFixed(2)
+                    ? "Please Select Country"
+                    : Number(selectData?.averagePrice).toFixed(2)
+                }
                 percentage={{
                   color: "success",
                   amount: "",
@@ -106,8 +119,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="primary"
                 icon="person_add"
-                title="Foreign Ports"
-                count="+91"
+                title="Country Records"
+                count={selectData?.exportData?.length}
                 percentage={{
                   color: "success",
                   amount: "",
