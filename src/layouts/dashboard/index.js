@@ -1,4 +1,3 @@
-//dashboard component
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -6,43 +5,25 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import SelectComponent from "layouts/rtl/components/custom-components/SelectComponent";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CustomTable from "layouts/rtl/components/custom-components/CustomTable";
-// import exportData from "layouts/rtl/components/custom-components/data";
 
 function Dashboard() {
-  // const { columns, rows } = authorsTableData();
-  // const [averageData, setAverageData] = useState({});
   const [selectData, setSelectData] = useState({
     exportData: [],
     country: "All",
+    averageQuantity: 0,
+    averagePrice: 0,
+    consigneeCount: 0,
   });
 
-  const getAverageData = () => {
-    const fun = async () => {
-      const res = await fetch("http://localhost:3000/api/getAverageData");
-      const data = await res.json();
-      // setAverageData(data?.result);
-      console.log("fun data get successfully in dashboard ", data?.result);
-    };
-    fun();
-  };
-  useEffect(() => {
-    const fun = async () => {
-      const res = await fetch("http://localhost:3000/api/getExportData");
-      const data = await res.json();
-      // setExportData(data?.result?.rows);
-      setSelectData({ exportData: data?.result?.rows });
-      console.log("fun data get successfully in dashboard ", data?.result);
-    };
-    fun();
-    getAverageData();
-  }, []);
   const handleDataFromSelect = (data) => {
     setSelectData(data);
     console.log("Data received in parent: ", data);
-    console.table(data);
   };
+
+  const { exportData, country, averageQuantity, averagePrice, consigneeCount } =
+    selectData;
 
   return (
     <DashboardLayout>
@@ -58,16 +39,14 @@ function Dashboard() {
                 icon="weekend"
                 title="Consignees"
                 count={
-                  !Number(selectData?.consigneeCount).toFixed()
-                    ? "Please Select Country"
-                    : Number(selectData?.consigneeCount).toFixed(0)
+                  consigneeCount
+                    ? consigneeCount.toFixed(0)
+                    : "Please Select Country"
                 }
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${
-                    !selectData?.country ? "All" : selectData?.country
-                  }`,
+                  label: `From ${country || "All"}`,
                 }}
               />
             </MDBox>
@@ -79,16 +58,14 @@ function Dashboard() {
                 icon="leaderboard"
                 title="Average Quantity"
                 count={
-                  !Number(selectData?.averageQuantity).toFixed()
-                    ? "Please Select Country"
-                    : Number(selectData?.averageQuantity).toFixed()
+                  averageQuantity
+                    ? averageQuantity.toFixed(0)
+                    : "Please Select Country"
                 }
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${
-                    !selectData?.country ? "All" : selectData?.country
-                  }`,
+                  label: `From ${country || "All"}`,
                 }}
               />
             </MDBox>
@@ -100,16 +77,14 @@ function Dashboard() {
                 icon="store"
                 title="Average Price"
                 count={
-                  !Number(selectData?.averagePrice).toFixed(2)
-                    ? "Please Select Country"
-                    : Number(selectData?.averagePrice).toFixed(2)
+                  averagePrice
+                    ? averagePrice.toFixed(2)
+                    : "Please Select Country"
                 }
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${
-                    !selectData?.country ? "All" : selectData?.country
-                  }`,
+                  label: `From ${country || "All"}`,
                 }}
               />
             </MDBox>
@@ -120,13 +95,11 @@ function Dashboard() {
                 color="primary"
                 icon="person_add"
                 title="Country Records"
-                count={selectData?.exportData?.length}
+                count={exportData.length}
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: `From ${
-                    !selectData?.country ? "All" : selectData?.country
-                  }`,
+                  label: `From ${country || "All"}`,
                 }}
               />
             </MDBox>
