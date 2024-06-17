@@ -79,16 +79,16 @@ function CustomTable({ data: exportData }) {
   // const [exData, setExData] = useState([]);
   console.log("data in table compo : ", exportData);
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 700, width: "100%" }}>
       <DataGrid
         rows={exportData?.exportData}
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[5, 10, 20]}
         checkboxSelection
       />
     </div>

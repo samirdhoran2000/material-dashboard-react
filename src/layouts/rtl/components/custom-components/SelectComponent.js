@@ -17,8 +17,8 @@ const SelectComponent = ({ sendData }) => {
   const fetchData = async () => {
     try {
       const [averageRes, exportRes] = await Promise.all([
-        fetch("http://localhost:3000/api/getAverageData"),
-        fetch("http://localhost:3000/api/getExportData"),
+        fetch(`${process.env.REACT_APP_API_URL}/getAverageData`),
+        fetch(`${process.env.REACT_APP_API_URL}/getExportData`),
       ]);
 
       const averageData = await averageRes.json();

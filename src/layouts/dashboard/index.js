@@ -9,6 +9,7 @@ import { useState } from "react";
 import CustomTable from "layouts/rtl/components/custom-components/CustomTable";
 
 function Dashboard() {
+  console.log("environment variables are ", `${process.env.REACT_APP_API_URL}`);
   const [selectData, setSelectData] = useState({
     exportData: [],
     country: "All",
@@ -38,11 +39,7 @@ function Dashboard() {
                 color="info"
                 icon="weekend"
                 title="Consignees"
-                count={
-                  consigneeCount
-                    ? consigneeCount.toFixed(0)
-                    : "Please Select Country"
-                }
+                count={consigneeCount.toFixed(0)}
                 percentage={{
                   color: "success",
                   amount: "",
@@ -57,11 +54,7 @@ function Dashboard() {
                 color="success"
                 icon="leaderboard"
                 title="Average Quantity"
-                count={
-                  averageQuantity
-                    ? averageQuantity.toFixed(0)
-                    : "Please Select Country"
-                }
+                count={averageQuantity.toFixed(0)}
                 percentage={{
                   color: "success",
                   amount: "",
@@ -76,11 +69,7 @@ function Dashboard() {
                 color="dark"
                 icon="store"
                 title="Average Price"
-                count={
-                  averagePrice
-                    ? averagePrice.toFixed(2)
-                    : "Please Select Country"
-                }
+                count={averagePrice.toFixed(2)}
                 percentage={{
                   color: "success",
                   amount: "",
@@ -109,7 +98,7 @@ function Dashboard() {
       <Grid item xs={12}>
         <CustomTable data={selectData} />
       </Grid>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }
