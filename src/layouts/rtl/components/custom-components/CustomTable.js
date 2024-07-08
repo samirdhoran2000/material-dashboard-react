@@ -51,13 +51,13 @@ const columns = [
     width: 90,
   },
   {
-    field: "unit_fob_inr",
+    field: "unit_inr_ammount",
     headerName: "Unit INR",
     type: "number",
     width: 90,
   },
   {
-    field: "total_fob_inr",
+    field: "total_inr_ammount",
     headerName: "Total INR",
     type: "number",
     width: 90,
